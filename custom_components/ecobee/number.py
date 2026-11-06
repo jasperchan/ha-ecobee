@@ -17,6 +17,7 @@ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from . import EcobeeConfigEntry, EcobeeData
 from .entity import EcobeeBaseEntity
+from .program_numbers import build_program_number_entities
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -78,6 +79,9 @@ async def async_setup_entry(
     entities.extend(
         EcobeeFanMinOnTime(data, index) for index in range(len(data.ecobee.thermostats))
     )
+
+    # ha-ecobee fork: comfort-setting heat/cool numbers (program_numbers.py).
+    entities.extend(build_program_number_entities(data))
 
     async_add_entities(entities, True)
 

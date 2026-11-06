@@ -12,6 +12,7 @@ from homeassistant.helpers.service import async_register_platform_entity_service
 from homeassistant.util.hass_dict import HassKey
 
 from .const import DOMAIN
+from .program_services import async_setup_program_services
 from .util import ecobee_date, ecobee_time
 
 if TYPE_CHECKING:
@@ -166,6 +167,8 @@ def _resume_program_set_service(call: ServiceCall) -> None:
 def async_setup_services(hass: HomeAssistant) -> None:
     """Register ecobee services."""
     hass.data[ECOBEE_THERMOSTATS] = []
+    # ha-ecobee fork: program control services (program_services.py).
+    async_setup_program_services(hass)
 
     hass.services.async_register(
         DOMAIN,

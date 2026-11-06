@@ -3,18 +3,33 @@
     "number": {
       "fan_min_on_time": {
         "default": "mdi:fan-clock"
+      },
+      "program_cool": {
+        "default": "mdi:thermometer-chevron-down"
+      },
+      "program_heat": {
+        "default": "mdi:thermometer-chevron-up"
       }
     }
   },
   "services": {
+    "copy_program": {
+      "service": "mdi:content-copy"
+    },
     "create_vacation": {
       "service": "mdi:umbrella-beach"
     },
     "delete_vacation": {
       "service": "mdi:umbrella-beach-outline"
     },
+    "get_program": {
+      "service": "mdi:calendar-text"
+    },
     "resume_program": {
       "service": "mdi:play"
+    },
+    "set_comfort_setting": {
+      "service": "mdi:home-thermometer-outline"
     },
     "set_dst_mode": {
       "service": "mdi:sun-clock"
@@ -27,6 +42,9 @@
     },
     "set_occupancy_modes": {
       "service": "mdi:eye-settings"
+    },
+    "set_schedule": {
+      "service": "mdi:calendar-clock"
     },
     "set_sensors_used_in_climate": {
       "service": "mdi:home-thermometer"

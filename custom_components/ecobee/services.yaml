@@ -154,3 +154,95 @@ set_sensors_used_in_climate:
           entity:
             - domain: climate
             - domain: sensor
+
+# ---------------------------------------------------------------------------
+# ha-ecobee fork: program control (see program_services.py / README.md)
+
+set_comfort_setting:
+  fields:
+    entity_id:
+      required: true
+      example: "climate.kitchen"
+      selector:
+        entity:
+          integration: ecobee
+          domain: climate
+    climate_ref:
+      required: true
+      example: "home"
+      selector:
+        text:
+    heat_temp:
+      example: 69
+      selector:
+        number:
+          min: 45
+          max: 92
+          step: 0.5
+          unit_of_measurement: "°"
+    cool_temp:
+      example: 78
+      selector:
+        number:
+          min: 45
+          max: 92
+          step: 0.5
+          unit_of_measurement: "°"
+    sensors:
+      example: '["Kitchen", "Living Room"]'
+      selector:
+        object:
+
+set_schedule:
+  fields:
+    entity_id:
+      required: true
+      selector:
+        entity:
+          integration: ecobee
+          domain: climate
+          multiple: true
+    schedule:
+      required: true
+      example: '{"weekdays": "06:30 home, 22:00 sleep", "weekend": "08:00 home, 23:00 sleep"}'
+      selector:
+        object:
+
+copy_program:
+  fields:
+    entity_id:
+      required: true
+      example: "climate.atlas_room"
+      selector:
+        entity:
+          integration: ecobee
+          domain: climate
+    targets:
+      required: true
+      selector:
+        entity:
+          integration: ecobee
+          domain: climate
+          multiple: true
+    comfort_settings:
+      default: true
+      selector:
+        boolean:
+    schedule:
+      default: true
+      selector:
+        boolean:
+    preserve_target_temperatures:
+      default: false
+      selector:
+        boolean:
+
+get_program:
+  fields:
+    entity_id:
+      required: true
+      example: "climate.kitchen"
+      selector:
+        entity:
+          integration: ecobee
+          domain: climate

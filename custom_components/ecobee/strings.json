@@ -53,6 +53,12 @@
       "fan_min_on_time": {
         "name": "Fan minimum on time"
       },
+      "program_cool": {
+        "name": "{climate} cool"
+      },
+      "program_heat": {
+        "name": "{climate} heat"
+      },
       "ventilator_min_type_away": {
         "name": "Ventilator minimum time away"
       },
@@ -76,6 +82,9 @@
     "invalid_preset": {
       "message": "Invalid climate program, available options are: {options}"
     },
+    "invalid_program": {
+      "message": "Invalid ecobee program change: {error}"
+    },
     "invalid_sensor": {
       "message": "Invalid sensor for thermostat, available options are: {options}"
     },
@@ -84,6 +93,12 @@
     },
     "no_devices_found": {
       "message": "No ecobee devices found to set up"
+    },
+    "program_entity_not_found": {
+      "message": "{entity_id} is not a loaded ecobee thermostat"
+    },
+    "program_write_failed": {
+      "message": "ecobee rejected the program update for {name}: {error}"
     },
     "sensor_lookup_failed": {
       "message": "There was an error getting the sensor IDs from sensor names. Try reloading the ecobee integration."
@@ -103,6 +118,32 @@
     }
   },
   "services": {
+    "copy_program": {
+      "name": "Copy program",
+      "description": "Copies comfort settings and/or the weekly schedule from one thermostat to others. Sensors are never copied; each target keeps its own.",
+      "fields": {
+        "entity_id": {
+          "name": "Source",
+          "description": "Thermostat to copy from."
+        },
+        "targets": {
+          "name": "Targets",
+          "description": "Thermostats to copy to."
+        },
+        "comfort_settings": {
+          "name": "Copy comfort settings",
+          "description": "Copy climate settings (temperatures, fan, names) matched by climateRef; climates missing on a target are created."
+        },
+        "schedule": {
+          "name": "Copy schedule",
+          "description": "Copy the 7-day schedule."
+        },
+        "preserve_target_temperatures": {
+          "name": "Preserve target temperatures",
+          "description": "Keep each target's own heat/cool temperatures while copying the other comfort setting fields."
+        }
+      }
+    },
     "create_vacation": {
       "description": "Creates a vacation on the selected thermostat. Note: start/end date and time must all be specified together for these parameters to have an effect. If start/end date and time are not specified, the vacation will start immediately and last 14 days (unless deleted earlier).",
       "fields": {
@@ -163,6 +204,16 @@
       },
       "name": "Delete vacation"
     },
+    "get_program": {
+      "name": "Get program",
+      "description": "Returns the thermostat program: comfort settings (temperatures in your unit, sensor names) and the weekly schedule in compact form.",
+      "fields": {
+        "entity_id": {
+          "name": "Entity",
+          "description": "ecobee thermostat to read."
+        }
+      }
+    },
     "resume_program": {
       "description": "Resumes the programmed schedule.",
       "fields": {
@@ -176,6 +227,32 @@
         }
       },
       "name": "Resume program"
+    },
+    "set_comfort_setting": {
+      "name": "Set comfort setting",
+      "description": "Changes the heat/cool temperatures and/or participating sensors of one comfort setting (climate) in the thermostat program. The complete program is rewritten.",
+      "fields": {
+        "entity_id": {
+          "name": "Entity",
+          "description": "ecobee thermostat whose program to change."
+        },
+        "climate_ref": {
+          "name": "Comfort setting",
+          "description": "climateRef (home, away, sleep, smart1, …) or display name of the comfort setting."
+        },
+        "heat_temp": {
+          "name": "Heat temperature",
+          "description": "New heat set point in your Home Assistant temperature unit."
+        },
+        "cool_temp": {
+          "name": "Cool temperature",
+          "description": "New cool set point in your Home Assistant temperature unit."
+        },
+        "sensors": {
+          "name": "Sensors",
+          "description": "Sensors that participate in this comfort setting, by ecobee sensor name or id (e.g. 'Living Room', 'rs2:100'). Replaces the current list."
+        }
+      }
     },
     "set_dst_mode": {
       "description": "Enables/disables automatic daylight savings time.",
@@ -224,6 +301,20 @@
         }
       },
       "name": "Set occupancy modes"
+    },
+    "set_schedule": {
+      "name": "Set schedule",
+      "description": "Replaces selected days of the weekly program schedule. Days not mentioned are untouched. A day that does not start at 00:00 continues the climate running at the end of the previous day.",
+      "fields": {
+        "entity_id": {
+          "name": "Entity",
+          "description": "ecobee thermostat(s) whose schedule to change."
+        },
+        "schedule": {
+          "name": "Schedule",
+          "description": "Mapping of day key (mon, tue, wed, thu, fri, sat, sun, weekdays, weekend, all) to 'HH:MM climate, HH:MM climate, …'. Times snap to 30 minutes."
+        }
+      }
     },
     "set_sensors_used_in_climate": {
       "description": "Sets the participating sensors for a climate program.",
