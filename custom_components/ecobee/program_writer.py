@@ -32,7 +32,7 @@ import asyncio
 from collections.abc import Callable, Mapping
 from typing import TYPE_CHECKING, Any
 
-from pyecobee import EcobeeError, ExpiredTokenError, InvalidTokenError
+from pyecobee.errors import EcobeeError, ExpiredTokenError, InvalidTokenError
 from pyecobee.const import (
     ECOBEE_API_VERSION,
     ECOBEE_BASE_URL,
