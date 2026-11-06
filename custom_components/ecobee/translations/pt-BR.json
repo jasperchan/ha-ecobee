@@ -1,0 +1,88 @@
+{
+    "config": {
+        "error": {
+            "pin_request_failed": "Erro ao solicitar o PIN do ecobee; verifique se a chave da API est\u00e1 correta.",
+            "token_request_failed": "Erro ao solicitar tokens da ecobee; por favor, tente novamente."
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "Chave de API"
+                },
+                "description": "Por favor, insira a chave de API obtida em ecobee.com."
+            }
+        }
+    },
+    "entity": {
+        "number": {
+            "compressor_protection_min_temp": {
+                "name": "Temperatura m\u00ednima do compressor"
+            }
+        }
+    },
+    "exceptions": {
+        "credentials_rejected": {
+            "message": "A ecobee rejeitou as credenciais armazenadas"
+        },
+        "failed_to_refresh_tokens": {
+            "message": "Falha ao atualizar os tokens do ecobee"
+        },
+        "mfa_reauthentication_needed": {
+            "message": "conta da ecobee exige autentica\u00e7\u00e3o multifatorial (MFA); \u00e9 necess\u00e1ria uma nova autentica\u00e7\u00e3o"
+        }
+    },
+    "services": {
+        "create_vacation": {
+            "fields": {
+                "end_time": {
+                    "name": "Hora de t\u00e9rmino"
+                },
+                "entity_id": {
+                    "name": "Entidade"
+                }
+            }
+        },
+        "delete_vacation": {
+            "fields": {
+                "entity_id": {
+                    "name": "Entidade"
+                },
+                "vacation_name": {
+                    "name": "Nome das f\u00e9rias"
+                }
+            }
+        },
+        "resume_program": {
+            "fields": {
+                "entity_id": {
+                    "name": "Entidade"
+                }
+            }
+        },
+        "set_fan_min_on_time": {
+            "fields": {
+                "entity_id": {
+                    "description": "Nome(s) das entidades a serem alteradas.",
+                    "name": "Entidade"
+                },
+                "fan_min_on_time": {
+                    "name": "Tempo m\u00ednimo de funcionamento do ventilador"
+                }
+            }
+        },
+        "set_occupancy_modes": {
+            "description": "Habilita/desabilita os modos Em casa/Ausente inteligente e Siga-me.",
+            "fields": {
+                "auto_away": {
+                    "description": "Habilita o modo inteligente Em casa/Ausente.",
+                    "name": "Aus\u00eancia autom\u00e1tica"
+                },
+                "follow_me": {
+                    "description": "Habilitar o modo Siga-me.",
+                    "name": "Siga-me"
+                }
+            },
+            "name": "Definir modos de ocupa\u00e7\u00e3o"
+        }
+    }
+}

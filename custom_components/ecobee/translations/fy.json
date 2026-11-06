@@ -1,0 +1,11 @@
+{
+    "services": {
+        "create_vacation": {
+            "fields": {
+                "cool_temp": {
+                    "name": "Koel temperatuer"
+                }
+            }
+        }
+    }
+}

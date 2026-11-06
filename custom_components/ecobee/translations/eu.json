@@ -1,0 +1,75 @@
+{
+    "config": {
+        "error": {
+            "invalid_auth": "Autentifikazio baliogabea",
+            "unknown": "Ustekabeko errorea"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Pasahitza"
+                }
+            },
+            "user": {
+                "data": {
+                    "api_key": "API gakoa",
+                    "password": "Pasahitza",
+                    "username": "Erabiltzaile-izena"
+                }
+            }
+        }
+    },
+    "services": {
+        "create_vacation": {
+            "fields": {
+                "end_date": {
+                    "description": "Oporraldia amaitzen deneko data UUUU-HH-EE formatoan (aukerazkoa, hemendik 14 egunetara 'Amaiera ordua' ematen ez bada)."
+                },
+                "end_time": {
+                    "name": "Amaiera ordua"
+                },
+                "entity_id": {
+                    "name": "Entitatea"
+                },
+                "start_date": {
+                    "name": "Hasiera data"
+                },
+                "start_time": {
+                    "name": "Hasiera ordua"
+                }
+            }
+        },
+        "delete_vacation": {
+            "fields": {
+                "entity_id": {
+                    "name": "Entitatea"
+                }
+            }
+        },
+        "resume_program": {
+            "fields": {
+                "entity_id": {
+                    "name": "Entitatea"
+                },
+                "resume_all": {
+                    "name": "Guztiak berrekin"
+                }
+            },
+            "name": "Programa berrekin"
+        },
+        "set_fan_min_on_time": {
+            "fields": {
+                "entity_id": {
+                    "name": "Entitatea"
+                }
+            }
+        },
+        "set_sensors_used_in_climate": {
+            "fields": {
+                "device_ids": {
+                    "name": "Sentsoreak"
+                }
+            }
+        }
+    }
+}

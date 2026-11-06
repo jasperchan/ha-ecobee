@@ -1,0 +1,243 @@
+{
+    "config": {
+        "error": {
+            "invalid_auth": "Neva\u017ee\u0107i podaci za prijavu",
+            "invalid_mfa_code": "ecobee nije prihvatio MFA kod; molimo poku\u0161ajte ponovo.",
+            "login_failed": "Gre\u0161ka pri prijavi na ecobee; proverite da li su va\u0161i pristupni podaci ispravni.",
+            "pin_request_failed": "Gre\u0161ka pri zahtevu za PIN od Ecobee; proverite da li je API klju\u010d ispravan.",
+            "token_request_failed": "Gre\u0161ka pri zahtevu za tokene od Ecobee; poku\u0161ajte ponovo.",
+            "unknown": "Neo\u010dekivana gre\u0161ka"
+        },
+        "step": {
+            "authorize": {
+                "description": "Molimo ovlastite ovu aplikaciju na {auth_url} pomo\u0107u PIN koda:  \n\n{pin}  \n\nZatim izaberite **Potvrdi**."
+            },
+            "mfa": {
+                "data": {
+                    "code": "MFA kod"
+                },
+                "description": "ecobee zahteva dodatnu proveru identiteta. Unesite {mfa_type} kod iz va\u0161e aplikacije za kodove."
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Lozinka"
+                },
+                "description": "Ponovo se prijavite na ecobee nalog za **{username}**."
+            },
+            "user": {
+                "data": {
+                    "api_key": "API klju\u010d",
+                    "password": "Lozinka",
+                    "username": "Korisni\u010dko ime"
+                },
+                "description": "Unesite API klju\u010d dobijen sa ecobee.com."
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "ecobee": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "away_indefinitely": "Odsutan \u2013 neodre\u0111eno"
+                        }
+                    }
+                }
+            }
+        },
+        "number": {
+            "compressor_protection_min_temp": {
+                "name": "Minimalna temperatura kompresora"
+            },
+            "fan_min_on_time": {
+                "name": "Minimalno vreme rada ventilatora"
+            },
+            "ventilator_min_type_away": {
+                "name": "Minimalno vreme rada ventilatora \u2013 odsutan"
+            },
+            "ventilator_min_type_home": {
+                "name": "Minimalno vreme rada ventilatora \u2013 kod ku\u0107e"
+            }
+        },
+        "switch": {
+            "aux_heat_only": {
+                "name": "Samo pomo\u0107no grejanje"
+            }
+        }
+    },
+    "exceptions": {
+        "credentials_rejected": {
+            "message": "ecobee je odbio sa\u010duvane akreditative"
+        },
+        "failed_to_refresh_tokens": {
+            "message": "Osve\u017eavanje ecobee tokena nije uspelo"
+        },
+        "invalid_preset": {
+            "message": "Neva\u017ee\u0107i program klimatizacije. Dostupne opcije su: {options}"
+        },
+        "invalid_sensor": {
+            "message": "Neva\u017ee\u0107i senzor za termostat, dostupne opcije su: {options}"
+        },
+        "mfa_reauthentication_needed": {
+            "message": "ecobee nalog zahteva dvofaktorsku autentifikaciju (MFA); potrebna je ponovna prijava"
+        },
+        "no_devices_found": {
+            "message": "Nisu prona\u0111eni ecobee ure\u0111aji za pode\u0161avanje"
+        },
+        "sensor_lookup_failed": {
+            "message": "Do\u0161lo je do gre\u0161ke prilikom dobijanja ID\u2011ova senzora iz naziva senzora. Poku\u0161ajte da ponovo u\u010ditate ecobee integraciju."
+        }
+    },
+    "issues": {
+        "migrate_aux_heat": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Akcija set_aux_heat za ecobee je migrirana. Novi prekida\u010d aux_heat_only (isklju\u010divo pomo\u0107no grejanje) dostupan je za svaki termostat koji podr\u017eava toplotnu pumpu.\n\nA\u017eurirajte sve automatizacije kako biste koristili novi entitet prekida\u010da aux_heat_only. Kada to zavr\u0161ite, ozna\u010dite ovaj problem kao re\u0161en (fix this issue) i ponovo pokrenite Home Assistant.",
+                        "title": "Onemogu\u0107avanje zastarele Ecobee akcije \u201eset_aux_heat\u201c"
+                    }
+                }
+            },
+            "title": "Migracija Ecobee akcije \u201eset_aux_heat\u201c"
+        }
+    },
+    "services": {
+        "create_vacation": {
+            "description": "Kreira odmor na izabranom termostatu. Napomena: datum i vreme po\u010detka/kraja moraju biti navedeni zajedno da bi ovi parametri imali efekat. Ako datum i vreme po\u010detka/kraja nisu navedeni, odmor \u0107e po\u010deti odmah i traja\u0107e 14 dana (osim ako se obri\u0161e ranije).",
+            "fields": {
+                "cool_temp": {
+                    "description": "Temperatura hla\u0111enja tokom odmora.",
+                    "name": "Temperatura hla\u0111enja"
+                },
+                "end_date": {
+                    "description": "Datum zavr\u0161etka odmora u formatu YYYY-MM-DD (opciono, 14 dana od sada ako nije naveden zajedno sa \u201eVremenom zavr\u0161etka\u201c).",
+                    "name": "Datum zavr\u0161etka"
+                },
+                "end_time": {
+                    "description": "Vreme zavr\u0161etka odmora, u lokalnom vremenu termostata, u 24-\u010dasovnom formatu \u201eHH:MM:SS\u201c.",
+                    "name": "Vreme zavr\u0161etka"
+                },
+                "entity_id": {
+                    "description": "ecobee termostat na kojem se kreira odmor.",
+                    "name": "Entitet"
+                },
+                "fan_min_on_time": {
+                    "description": "Minimalan broj minuta rada ventilatora po satu tokom odmora.",
+                    "name": "Minimalno vreme rada ventilatora"
+                },
+                "fan_mode": {
+                    "description": "Re\u017eim ventilatora termostata tokom odmora.",
+                    "name": "Re\u017eim ventilatora"
+                },
+                "heat_temp": {
+                    "description": "Temperatura grejanja tokom odmora.",
+                    "name": "Temperatura grejanja"
+                },
+                "start_date": {
+                    "description": "Datum po\u010detka odmora u formatu YYYY-MM-DD (opciono, odmah ako nije naveden zajedno sa \u201eVremenom po\u010detka\u201c).",
+                    "name": "Datum po\u010detka"
+                },
+                "start_time": {
+                    "description": "Vreme po\u010detka odmora, u lokalnom vremenu termostata, u 24-\u010dasovnom formatu \u201eHH:MM:SS\u201c.",
+                    "name": "Vreme po\u010detka"
+                },
+                "vacation_name": {
+                    "description": "Naziv odmora koji se kreira; mora biti jedinstven na termostatu.",
+                    "name": "Naziv odmora"
+                }
+            },
+            "name": "Kreirajte odmor"
+        },
+        "delete_vacation": {
+            "description": "Bri\u0161e re\u017eim odmora na izabranom termostatu.",
+            "fields": {
+                "entity_id": {
+                    "description": "ecobee termostat na kojem se bri\u0161e odmor.",
+                    "name": "Entitet"
+                },
+                "vacation_name": {
+                    "description": "Naziv odmora za brisanje.",
+                    "name": "Naziv odmora"
+                }
+            },
+            "name": "Obri\u0161i re\u017eim odmora"
+        },
+        "resume_program": {
+            "description": "Nastavlja programirani raspored.",
+            "fields": {
+                "entity_id": {
+                    "description": "Naziv(i) entiteta za izmenu.",
+                    "name": "Entitet"
+                },
+                "resume_all": {
+                    "description": "Nastavi sve doga\u0111aje i vrati se na zakazani raspored.",
+                    "name": "Nastavi sve"
+                }
+            },
+            "name": "Nastavi program"
+        },
+        "set_dst_mode": {
+            "description": "Omogu\u0107ava/onemogu\u0107ava automatsko letnje ra\u010dunanje vremena.",
+            "fields": {
+                "dst_enabled": {
+                    "description": "Omogu\u0107i automatsko letnje ra\u010dunanje vremena.",
+                    "name": "Letnje ra\u010dunanje vremena omogu\u0107eno"
+                }
+            },
+            "name": "Podesi re\u017eim letnjeg ra\u010dunanja vremena"
+        },
+        "set_fan_min_on_time": {
+            "description": "Pode\u0161ava minimalno vreme rada ventilatora po satu.",
+            "fields": {
+                "entity_id": {
+                    "description": "Naziv(i) entiteta za izmenu.",
+                    "name": "Entitet"
+                },
+                "fan_min_on_time": {
+                    "description": "Minimalan broj minuta rada ventilatora po satu.",
+                    "name": "Minimalno vreme rada ventilatora"
+                }
+            },
+            "name": "Podesi minimalno vreme rada ventilatora"
+        },
+        "set_mic_mode": {
+            "description": "Omogu\u0107ava/onemogu\u0107ava Alexa mikrofon (samo za ecobee 4).",
+            "fields": {
+                "mic_enabled": {
+                    "description": "Omogu\u0107i Alexa mikrofon.",
+                    "name": "Mikrofon omogu\u0107en"
+                }
+            },
+            "name": "Podesi re\u017eim mikrofona"
+        },
+        "set_occupancy_modes": {
+            "description": "Omogu\u0107ava/onemogu\u0107ava re\u017eime Smart Home/Away i Follow Me.",
+            "fields": {
+                "auto_away": {
+                    "description": "Omogu\u0107i re\u017eim Pametno Ku\u0107a/Odsustvo.",
+                    "name": "Automatsko odsustvo"
+                },
+                "follow_me": {
+                    "description": "Omogu\u0107i re\u017eim Prati me",
+                    "name": "Prati me"
+                }
+            },
+            "name": "Podesi re\u017eime zauzetosti"
+        },
+        "set_sensors_used_in_climate": {
+            "description": "Odre\u0111uje senzore koji u\u010destvuju u programu klime.",
+            "fields": {
+                "device_ids": {
+                    "description": "Senzori koje treba postaviti kao aktivne u\u010desnike.",
+                    "name": "Senzori"
+                },
+                "preset_mode": {
+                    "description": "Naziv klimatskog programa na kojem se aktiviraju senzori.\nPodrazumevano je trenutno aktivan program.",
+                    "name": "Klimatski program"
+                }
+            },
+            "name": "Podesi senzore za klimu"
+        }
+    }
+}

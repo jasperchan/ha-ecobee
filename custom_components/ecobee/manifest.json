@@ -1,0 +1,49 @@
+{
+  "domain": "ecobee",
+  "name": "ecobee (program control fork)",
+  "categories": [
+    "climate.thermostats_heating"
+  ],
+  "codeowners": [
+    "@jasperchan"
+  ],
+  "config_flow": true,
+  "connectivity": [
+    "cloud"
+  ],
+  "documentation": "https://github.com/jasperchan/ha-ecobee",
+  "homekit": {
+    "models": [
+      "EB",
+      "ecobee*"
+    ]
+  },
+  "integration_type": "hub",
+  "iot_class": "cloud_polling",
+  "loggers": [
+    "pyecobee"
+  ],
+  "requirements": [
+    "python-ecobee-api==0.4.2"
+  ],
+  "single_config_entry": true,
+  "zeroconf": [
+    {
+      "type": "_ecobee._tcp.local."
+    },
+    {
+      "properties": {
+        "mdl": "eb-*"
+      },
+      "type": "_sideplay._tcp.local."
+    },
+    {
+      "properties": {
+        "mdl": "ecobee*"
+      },
+      "type": "_sideplay._tcp.local."
+    }
+  ],
+  "version": "2026.11.0.1",
+  "issue_tracker": "https://github.com/jasperchan/ha-ecobee/issues"
+}

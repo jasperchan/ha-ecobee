@@ -1,0 +1,243 @@
+{
+    "config": {
+        "error": {
+            "invalid_auth": "Ung\u00fcltige Authentifizierung",
+            "invalid_mfa_code": "Der MFA-Code wurde von ecobee nicht akzeptiert; bitte versuche es erneut.",
+            "login_failed": "Fehler bei der Authentifizierung mit ecobee; bitte \u00fcberpr\u00fcfe, ob deine Anmeldedaten korrekt sind.",
+            "pin_request_failed": "Fehler beim Anfordern der PIN von ecobee; bitte \u00fcberpr\u00fcfe, ob der API-Schl\u00fcssel korrekt ist.",
+            "token_request_failed": "Fehler beim Anfordern eines Tokens von ecobee; Bitte versuche es erneut.",
+            "unknown": "Unerwarteter Fehler"
+        },
+        "step": {
+            "authorize": {
+                "description": "Bitte autorisiere diese App unter {auth_url} mit PIN-Code:\n\n{pin}\n\nDr\u00fccke dann auf **OK**."
+            },
+            "mfa": {
+                "data": {
+                    "code": "MFA-Code"
+                },
+                "description": "ecobee erfordert eine Multi-Faktor-Authentifizierung. Gib den {mfa_type}-Code aus deiner Authentifizierungs-App ein."
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Passwort"
+                },
+                "description": "Authentifiziere das ecobee-Konto f\u00fcr **{username}** erneut."
+            },
+            "user": {
+                "data": {
+                    "api_key": "API-Schl\u00fcssel",
+                    "password": "Passwort",
+                    "username": "Benutzername"
+                },
+                "description": "Bitte gib den von ecobee.com erhaltenen API-Schl\u00fcssel ein."
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "ecobee": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "away_indefinitely": "Auf unbestimmte Zeit abwesend"
+                        }
+                    }
+                }
+            }
+        },
+        "number": {
+            "compressor_protection_min_temp": {
+                "name": "Minimaltemperatur Kompressor"
+            },
+            "fan_min_on_time": {
+                "name": "L\u00fcfter-Mindestlaufzeit"
+            },
+            "ventilator_min_type_away": {
+                "name": "Minimallaufzeit L\u00fcfter abwesend"
+            },
+            "ventilator_min_type_home": {
+                "name": "Minimallaufzeit L\u00fcfter zuhause"
+            }
+        },
+        "switch": {
+            "aux_heat_only": {
+                "name": "Nur Zusatzheizung"
+            }
+        }
+    },
+    "exceptions": {
+        "credentials_rejected": {
+            "message": "ecobee hat die gespeicherten Anmeldedaten abgelehnt"
+        },
+        "failed_to_refresh_tokens": {
+            "message": "Aktualisierung der ecobee-Token fehlgeschlagen"
+        },
+        "invalid_preset": {
+            "message": "Ung\u00fcltiges Klimatisierungsprogramm, verf\u00fcgbare Optionen sind: {options}"
+        },
+        "invalid_sensor": {
+            "message": "Ung\u00fcltiger Sensor f\u00fcr Thermostat, verf\u00fcgbare Optionen sind: {options}"
+        },
+        "mfa_reauthentication_needed": {
+            "message": "ecobee-Konto erfordert MFA; erneute Authentifizierung notwendig"
+        },
+        "no_devices_found": {
+            "message": "Keine ecobee-Ger\u00e4te zum Einrichten gefunden"
+        },
+        "sensor_lookup_failed": {
+            "message": "Beim Abrufen der Sensor-IDs aus den Sensornamen ist ein Fehler aufgetreten. Versuche die ecobee-Integration neu zu laden."
+        }
+    },
+    "issues": {
+        "migrate_aux_heat": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Die ecobee-Aktion `set_aux_heat` wurde migriert. F\u00fcr jeden Thermostat, der eine W\u00e4rmepumpe unterst\u00fctzt, ist eine neue Schalter-Entit\u00e4t `aux_heat_only` verf\u00fcgbar. \n\nAktualisiere alle Automationen, um die neue Schalter-Entit\u00e4t `aux_heat_only` zu verwenden. Sobald dies erledigt ist, behebe dieses Problem und starte Home Assistant neu.",
+                        "title": "Deaktiviere die alte ecobee-Aktion \u201eset_aux_heat\u201c"
+                    }
+                }
+            },
+            "title": "Migration der ecobee-Aktion \u201eset_aux_heat\u201c"
+        }
+    },
+    "services": {
+        "create_vacation": {
+            "description": "Erstellt einen Urlaub auf dem ausgew\u00e4hlten Thermostat. Hinweis: Start-/Enddatum und -uhrzeit m\u00fcssen zusammen angegeben werden, damit diese Parameter wirksam werden. Wenn Start-/Enddatum und -uhrzeit nicht angegeben sind, beginnt der Urlaub sofort und dauert 14 Tage (sofern er nicht fr\u00fcher gel\u00f6scht wird).",
+            "fields": {
+                "cool_temp": {
+                    "description": "K\u00fchltemperatur w\u00e4hrend des Urlaubs.",
+                    "name": "K\u00fchltemperatur"
+                },
+                "end_date": {
+                    "description": "Datum des Urlaubsendes, im Format JJJJ-MM-TT (optional, 14 Tage ab jetzt, wenn nicht zusammen mit 'End-Uhrzeit' angegeben).",
+                    "name": "End-Datum"
+                },
+                "end_time": {
+                    "description": "Uhrzeit des Urlaubsendes, in der Ortszeit des Thermostats, im 24-Stunden-Format \u201eHH:MM:SS\u201c.",
+                    "name": "End-Uhrzeit"
+                },
+                "entity_id": {
+                    "description": "ecobee-Thermostat, auf dem der Urlaub erstellt werden soll.",
+                    "name": "Entit\u00e4t"
+                },
+                "fan_min_on_time": {
+                    "description": "Mindestanzahl der Minuten, die der L\u00fcfter w\u00e4hrend des Urlaubs pro Stunde laufen soll.",
+                    "name": "L\u00fcfter-Mindestlaufzeit"
+                },
+                "fan_mode": {
+                    "description": "L\u00fcftermodus des Thermostats w\u00e4hrend des Urlaubs.",
+                    "name": "L\u00fcfter-Modus"
+                },
+                "heat_temp": {
+                    "description": "Heiztemperatur w\u00e4hrend des Urlaubs.",
+                    "name": "Heiztemperatur"
+                },
+                "start_date": {
+                    "description": "Datum des Urlaubsbeginns im Format JJJJ-MM-TT (optional, sofort, wenn nicht zusammen mit 'Start-Uhrzeit' angegeben).",
+                    "name": "Start-Datum"
+                },
+                "start_time": {
+                    "description": "Uhrzeit des Urlaubsbeginns, in der Ortszeit des Thermostats, im 24-Stunden-Format \u201eHH:MM:SS\u201c.",
+                    "name": "Start-Uhrzeit"
+                },
+                "vacation_name": {
+                    "description": "Name des zu erstellenden Urlaubs; muss auf dem Thermostat eindeutig sein.",
+                    "name": "Urlaubsname"
+                }
+            },
+            "name": "Urlaub erstellen"
+        },
+        "delete_vacation": {
+            "description": "L\u00f6scht einen Urlaub auf dem ausgew\u00e4hlten Thermostat.",
+            "fields": {
+                "entity_id": {
+                    "description": "ecobee-Thermostat, auf dem der Urlaub gel\u00f6scht werden soll.",
+                    "name": "Entit\u00e4t"
+                },
+                "vacation_name": {
+                    "description": "Name des zu l\u00f6schenden Urlaubs.",
+                    "name": "Urlaubsname"
+                }
+            },
+            "name": "Urlaub l\u00f6schen"
+        },
+        "resume_program": {
+            "description": "Setzt den programmierten Zeitplan fort.",
+            "fields": {
+                "entity_id": {
+                    "description": "Namen der zu \u00e4ndernden Entit\u00e4ten.",
+                    "name": "Entit\u00e4t"
+                },
+                "resume_all": {
+                    "description": "Alle Ereignisse fortsetzen und zum geplanten Programm zur\u00fcckkehren.",
+                    "name": "Alle fortsetzen"
+                }
+            },
+            "name": "Programm fortsetzen"
+        },
+        "set_dst_mode": {
+            "description": "Aktiviert/deaktiviert die automatische Sommerzeitumstellung.",
+            "fields": {
+                "dst_enabled": {
+                    "description": "Automatische Sommerzeitumstellung aktivieren.",
+                    "name": "Sommerzeit aktiviert"
+                }
+            },
+            "name": "Sommerzeitmodus einstellen"
+        },
+        "set_fan_min_on_time": {
+            "description": "Legt die Mindestzeit fest, die der L\u00fcfter pro Stunde l\u00e4uft.",
+            "fields": {
+                "entity_id": {
+                    "description": "Namen der zu \u00e4ndernden Entit\u00e4ten.",
+                    "name": "Entit\u00e4t"
+                },
+                "fan_min_on_time": {
+                    "description": "Mindestanzahl von Minuten, die der L\u00fcfter pro Stunde laufen soll.",
+                    "name": "L\u00fcfter-Mindestlaufzeit"
+                }
+            },
+            "name": "L\u00fcfter-Mindestlaufzeit einstellen"
+        },
+        "set_mic_mode": {
+            "description": "Aktiviert/deaktiviert das Alexa-Mikrofon (nur f\u00fcr ecobee 4).",
+            "fields": {
+                "mic_enabled": {
+                    "description": "Das Alexa-Mikrofon aktivieren.",
+                    "name": "Mikrofon aktiviert"
+                }
+            },
+            "name": "Mikrofonmodus einstellen"
+        },
+        "set_occupancy_modes": {
+            "description": "Aktiviert/deaktiviert den smarten Smart Zuhause-/Abwesend- und Folge-mir-Modus.",
+            "fields": {
+                "auto_away": {
+                    "description": "Den smarten Zuhause-/Abwesendmodus aktivieren.",
+                    "name": "Automatisch abwesend"
+                },
+                "follow_me": {
+                    "description": "Den Folge-mir-Modus aktivieren.",
+                    "name": "Folge mir"
+                }
+            },
+            "name": "Anwesenheitsmodi festlegen"
+        },
+        "set_sensors_used_in_climate": {
+            "description": "Legt die beteiligten Sensoren f\u00fcr ein Klimatisierungsprogramm fest.",
+            "fields": {
+                "device_ids": {
+                    "description": "Sensoren, die als teilnehmende Sensoren festgelegt werden sollen.",
+                    "name": "Sensoren"
+                },
+                "preset_mode": {
+                    "description": "Name des Klimatisierungsprogramms, auf dem die Sensoren aktiv gestellt werden sollen. Standardm\u00e4\u00dfig wird das aktive Programm genommen.",
+                    "name": "Klimatisierungsprogramm"
+                }
+            },
+            "name": "Sensoren f\u00fcr Klimatisierung einstellen"
+        }
+    }
+}

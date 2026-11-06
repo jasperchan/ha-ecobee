@@ -1,0 +1,25 @@
+{
+    "config": {
+        "error": {
+            "pin_request_failed": "Feil under foresp\u00f8rsel om PIN-kode fra ecobee. Kontroller at API-n\u00f8kkelen er riktig.",
+            "token_request_failed": "Feil ved foresp\u00f8rsel om tokener fra ecobee: Pr\u00f8v p\u00e5 nytt."
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "API-n\u00f8kkel"
+                },
+                "description": "Vennligst fyll inn API-n\u00f8kkel som er innhentet fra ecobee.com."
+            }
+        }
+    },
+    "services": {
+        "set_sensors_used_in_climate": {
+            "fields": {
+                "device_ids": {
+                    "name": "Sensorer"
+                }
+            }
+        }
+    }
+}

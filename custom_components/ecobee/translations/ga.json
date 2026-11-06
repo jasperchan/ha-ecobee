@@ -1,0 +1,239 @@
+{
+    "config": {
+        "error": {
+            "invalid_auth": "F\u00edordheimhni\u00fa neamhbhail\u00ed",
+            "invalid_mfa_code": "N\u00edor ghlac ecobee leis an gc\u00f3d MFA; d\u00e9an iarracht ar\u00eds.",
+            "login_failed": "Earr\u00e1id ag f\u00edordheimhni\u00fa le ecobee; deimhnigh le do thoil go bhfuil do chuid dinti\u00fair ceart.",
+            "pin_request_failed": "Earr\u00e1id ag iarraidh PIN \u00f3 ecobee; deimhnigh le do thoil go bhfuil eochair API ceart.",
+            "token_request_failed": "Earr\u00e1id ag iarraidh comhartha\u00ed \u00f3 ecobee; d\u00e9an iarracht ar\u00eds le do thoil.",
+            "unknown": "Earr\u00e1id gan choinne"
+        },
+        "step": {
+            "authorize": {
+                "description": "\u00dadaraigh an aip seo ag {auth_url} leis an gc\u00f3d PIN:\n\n{pin}\n\nAnsin, roghnaigh **Cuir Isteach**."
+            },
+            "mfa": {
+                "data": {
+                    "code": "C\u00f3d MFA"
+                },
+                "description": "\u00c9il\u00edonn ecobee f\u00edordheimhni\u00fa ilfhacht\u00f3ireach. Cuir isteach an c\u00f3d {mfa_type} \u00f3 d'aip f\u00edordheimhnitheora."
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Pasfhocal"
+                },
+                "description": "Athfh\u00edordheimhnigh cuntas ecobee do **{username}**."
+            },
+            "user": {
+                "data": {
+                    "api_key": "Eochair API",
+                    "password": "Pasfhocal",
+                    "username": "Ainm \u00fas\u00e1ideora"
+                },
+                "description": "Cuir isteach an eochair API a fuarthas \u00f3 ecobee.com le do thoil."
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "ecobee": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "away_indefinitely": "Ar shi\u00fal go ceann tr\u00e9imhse \u00e9iginnte"
+                        }
+                    }
+                }
+            }
+        },
+        "number": {
+            "compressor_protection_min_temp": {
+                "name": "\u00cdosteocht an chomhbhr\u00faiteora"
+            },
+            "fan_min_on_time": {
+                "name": "\u00cdosmh\u00e9id ama lucht lean\u00fana ar si\u00fal"
+            },
+            "ventilator_min_type_away": {
+                "name": "\u00cdosmh\u00e9id ama ar shi\u00fal ag an aer\u00e1la\u00ed"
+            },
+            "ventilator_min_type_home": {
+                "name": "\u00cdosmh\u00e9id ama aer\u00e1la\u00ed sa bhaile"
+            }
+        },
+        "switch": {
+            "aux_heat_only": {
+                "name": "Teas c\u00fanta amh\u00e1in"
+            }
+        }
+    },
+    "exceptions": {
+        "credentials_rejected": {
+            "message": "Dhi\u00faltaigh ecobee na dinti\u00fair st\u00f3r\u00e1ilte"
+        },
+        "failed_to_refresh_tokens": {
+            "message": "Theip ar chomhartha\u00ed ecobee a athnuachan"
+        },
+        "invalid_sensor": {
+            "message": "Braiteoir neamhbhail\u00ed don teirmeastat, is iad na roghanna at\u00e1 ar f\u00e1il: {options}"
+        },
+        "mfa_reauthentication_needed": {
+            "message": "\u00c9il\u00edonn cuntas ecobee MFA; ath-fh\u00edordheimhni\u00fa ag teast\u00e1il"
+        },
+        "no_devices_found": {
+            "message": "N\u00edor aims\u00edodh aon ghl\u00e9as ecobee le socr\u00fa"
+        },
+        "sensor_lookup_failed": {
+            "message": "Tharla earr\u00e1id agus aitheant\u00f3ir\u00ed na braiteoir\u00ed \u00e1 bhf\u00e1il \u00f3 ainmneacha na braiteoir\u00ed. Bain triail as an gcomhth\u00e1th\u00fa ecobee a athl\u00f3d\u00e1il."
+        }
+    },
+    "issues": {
+        "migrate_aux_heat": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "T\u00e1 gn\u00edomh `set_aux_heat` an ecobee aistrithe. T\u00e1 eintiteas lasctha nua `aux_heat_only` ar f\u00e1il do gach teirmeastat a thaca\u00edonn le Caid\u00e9al Teasa.\n\nNuashonraigh aon uathoibrithe chun an t-eintiteas lasctha nua `aux_heat_only` a \u00fas\u00e1id. Nuair a bheidh s\u00e9 seo d\u00e9anta, socraigh an fhadhb seo agus atos\u00fa C\u00fant\u00f3ir Baile.",
+                        "title": "D\u00edchumasaigh gn\u00edomh set_aux_heat seanr\u00e9 ecobee"
+                    }
+                }
+            },
+            "title": "Imirce gn\u00edomh ecobee set_aux_heat"
+        }
+    },
+    "services": {
+        "create_vacation": {
+            "description": "Crutha\u00edonn s\u00e9 seo saoire ar an teirmeastat roghnaithe. Tabhair faoi deara: n\u00ed m\u00f3r d\u00e1ta agus am tosaithe/deiridh a shonr\u00fa le ch\u00e9ile chun go mbeidh \u00e9ifeacht ag na paraim\u00e9adair seo. Mura sonra\u00edtear d\u00e1ta agus am tosaithe/deiridh, tos\u00f3idh an saoire l\u00e1ithreach agus mairfidh s\u00ed 14 l\u00e1 (mura scriostar \u00ed n\u00edos luaithe).",
+            "fields": {
+                "cool_temp": {
+                    "description": "Teocht fuaraithe le linn na laethanta saoire.",
+                    "name": "Teocht fhuar"
+                },
+                "end_date": {
+                    "description": "D\u00e1ta cr\u00edochna\u00edonn an saoire sa bhform\u00e1id YYYY-MM-DD (roghnach, 14 l\u00e1 \u00f3 anois mura gcuirtear ar f\u00e1il \u00e9 mar aon le 'Am cr\u00edochnaithe').",
+                    "name": "D\u00e1ta deiridh"
+                },
+                "end_time": {
+                    "description": "Am cr\u00edochnaithe na laethanta saoire, in am \u00e1iti\u00fail an teirmeastait, san fhorm\u00e1id 24 uair an chloig \"UU:NN:SS\".",
+                    "name": "Am deiridh"
+                },
+                "entity_id": {
+                    "description": "teirmeastat ecobee ar a gcruth\u00f3far an saoire.",
+                    "name": "Eintiteas"
+                },
+                "fan_min_on_time": {
+                    "description": "An l\u00edon \u00edosta n\u00f3im\u00e9ad chun an lucht lean\u00fana a rith gach uair an chloig le linn na laethanta saoire.",
+                    "name": "\u00cdosmh\u00e9id ama lucht lean\u00fana ar si\u00fal"
+                },
+                "fan_mode": {
+                    "description": "M\u00f3d fean an teirmeastait le linn na laethanta saoire.",
+                    "name": "M\u00f3d fean"
+                },
+                "heat_temp": {
+                    "description": "Teocht an t\u00e9imh le linn na laethanta saoire.",
+                    "name": "Teocht teasa"
+                },
+                "start_date": {
+                    "description": "D\u00e1ta tosaithe na saoire sa bhform\u00e1id BBBB-MM-LL (roghnach, l\u00e1ithreach mura gcuirtear ar f\u00e1il \u00e9 mar aon le 'Am tosaithe').",
+                    "name": "D\u00e1ta tosaithe"
+                },
+                "start_time": {
+                    "description": "Am tosaithe na laethanta saoire, in am \u00e1iti\u00fail an teirmeastait, san fhorm\u00e1id 24 uair an chloig \"UU:NN:SS\".",
+                    "name": "Am tosaithe"
+                },
+                "vacation_name": {
+                    "description": "Ainm na laethanta saoire at\u00e1 le cruth\u00fa; n\u00ed m\u00f3r \u00e9 a bheith uath\u00fail ar an teirmeastat.",
+                    "name": "Ainm saoire"
+                }
+            },
+            "name": "Cruthaigh saoire"
+        },
+        "delete_vacation": {
+            "description": "Scriosann s\u00e9 saoire ar an teirmeastat roghnaithe.",
+            "fields": {
+                "entity_id": {
+                    "description": "teirmeastat ecobee ar a scriosfar an saoire.",
+                    "name": "Eintiteas"
+                },
+                "vacation_name": {
+                    "description": "Ainm na laethanta saoire at\u00e1 le scriosadh.",
+                    "name": "Ainm saoire"
+                }
+            },
+            "name": "Scrios laethanta saoire"
+        },
+        "resume_program": {
+            "description": "Leanann s\u00e9 ar aghaidh leis an sceideal cl\u00e1raithe.",
+            "fields": {
+                "entity_id": {
+                    "description": "Ainm(neacha) na n-eintiteas at\u00e1 le hathr\u00fa.",
+                    "name": "Eintiteas"
+                },
+                "resume_all": {
+                    "description": "Lean ar aghaidh leis na himeachta\u00ed go l\u00e9ir agus fill ar an gcl\u00e1r sceidealaithe.",
+                    "name": "Lean ar aghaidh leis an uile rud"
+                }
+            },
+            "name": "Cl\u00e1r atos\u00fa"
+        },
+        "set_dst_mode": {
+            "description": "Cumasa\u00edonn/d\u00edchumasa\u00edonn s\u00e9 am coigiltis samhraidh uathoibr\u00edoch.",
+            "fields": {
+                "dst_enabled": {
+                    "description": "Cumasaigh am coigiltis lae uathoibr\u00edoch.",
+                    "name": "Am coigiltis lae cumasaithe"
+                }
+            },
+            "name": "Socraigh m\u00f3d ama coigiltis an lae"
+        },
+        "set_fan_min_on_time": {
+            "description": "Socra\u00edonn s\u00e9 an t-\u00edosmh\u00e9id ama a rithfidh an lucht lean\u00fana in aghaidh na huaire.",
+            "fields": {
+                "entity_id": {
+                    "description": "Ainm(neacha) na n-eintiteas at\u00e1 le hathr\u00fa.",
+                    "name": "Eintiteas"
+                },
+                "fan_min_on_time": {
+                    "description": "An l\u00edon \u00edosta n\u00f3im\u00e9ad chun an lucht lean\u00fana a rith gach uair an chloig.",
+                    "name": "\u00cdosmh\u00e9id ama lucht lean\u00fana ar si\u00fal"
+                }
+            },
+            "name": "Socraigh an t-am \u00edosta don lucht\u00f3ir"
+        },
+        "set_mic_mode": {
+            "description": "Cumasa\u00edonn/d\u00edchumasa\u00edonn micreaf\u00f3n Alexa (le haghaidh ecobee 4 amh\u00e1in).",
+            "fields": {
+                "mic_enabled": {
+                    "description": "Cumasaigh micreaf\u00f3n Alexa.",
+                    "name": "Micreaf\u00f3n cumasaithe"
+                }
+            },
+            "name": "Socraigh m\u00f3d micreaf\u00f3in"
+        },
+        "set_occupancy_modes": {
+            "description": "Cumasa\u00edonn/d\u00edchumasa\u00edonn s\u00e9 na modhanna Baile Cliste/As Baile agus Lean Mise.",
+            "fields": {
+                "auto_away": {
+                    "description": "Cumasaigh m\u00f3d Baile Cliste/As Baile.",
+                    "name": "Uathoibr\u00edoch ar shi\u00fal"
+                },
+                "follow_me": {
+                    "description": "Cumasaigh m\u00f3d Lean Mise.",
+                    "name": "Lean m\u00e9"
+                }
+            },
+            "name": "Socraigh modhanna \u00e1it\u00edochta"
+        },
+        "set_sensors_used_in_climate": {
+            "description": "Socra\u00edonn s\u00e9 na braiteoir\u00ed rannph\u00e1irteacha le haghaidh cl\u00e1r aer\u00e1ide.",
+            "fields": {
+                "device_ids": {
+                    "description": "Braiteoir\u00ed le socr\u00fa mar braiteoir\u00ed rannph\u00e1irteacha.",
+                    "name": "Braiteoir\u00ed"
+                },
+                "preset_mode": {
+                    "description": "Ainm an chl\u00e1ir aer\u00e1ide chun na braiteoir\u00ed a chur gn\u00edomhach air.\nR\u00e9amhshocr\u00fa don chl\u00e1r at\u00e1 gn\u00edomhach faoi l\u00e1thair."
+                }
+            },
+            "name": "Socraigh braiteoir\u00ed a \u00fas\u00e1idtear san aer\u00e1id"
+        }
+    }
+}

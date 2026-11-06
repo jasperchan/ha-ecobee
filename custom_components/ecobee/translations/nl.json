@@ -1,0 +1,52 @@
+{
+    "config": {
+        "error": {
+            "invalid_auth": "Ongeldige authenticatie",
+            "pin_request_failed": "Fout bij het aanvragen van pincode bij ecobee; Controleer of de API-sleutel correct is.",
+            "token_request_failed": "Fout bij het aanvragen van tokens bij ecobee; probeer het opnieuw.",
+            "unknown": "Onverwachte fout"
+        },
+        "step": {
+            "authorize": {
+                "description": "Autoriseer deze app op {auth_url} met PIN-code: \n\n {pin} \n \nKies vervolgens **Verzenden**."
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Wachtwoord"
+                }
+            },
+            "user": {
+                "data": {
+                    "api_key": "API-sleutel",
+                    "password": "Wachtwoord",
+                    "username": "Gebruikersnaam"
+                },
+                "description": "Voer de API-sleutel in die u van ecobee.com hebt gekregen."
+            }
+        }
+    },
+    "services": {
+        "create_vacation": {
+            "fields": {
+                "cool_temp": {
+                    "name": "Koel temperatuur"
+                },
+                "end_date": {
+                    "name": "Einddatum"
+                },
+                "end_time": {
+                    "name": "Eindtijd"
+                },
+                "start_date": {
+                    "name": "Startdatum"
+                },
+                "start_time": {
+                    "name": "Starttijd"
+                }
+            }
+        },
+        "delete_vacation": {
+            "name": "Vakantie verwijderen"
+        }
+    }
+}

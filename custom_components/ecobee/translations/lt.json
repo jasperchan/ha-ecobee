@@ -1,0 +1,243 @@
+{
+    "config": {
+        "error": {
+            "invalid_auth": "Neteisingas autentifikavimas",
+            "invalid_mfa_code": "ecobee nepri\u0117m\u0117 MFA kodo; bandykite dar kart\u0105.",
+            "login_failed": "Klaida autentifikuojant naudojant ecobee; patikrinkite, ar j\u016bs\u0173 prisijungimo duomenys teisingi.",
+            "pin_request_failed": "Klaida pra\u0161ant PIN kodo i\u0161 ecobee; patikrinkite, ar API raktas yra teisingas.",
+            "token_request_failed": "Klaida pra\u0161ant \u017eeton\u0173 i\u0161 ecobee; Pra\u0161au, pabandykite dar kart\u0105.",
+            "unknown": "Netik\u0117ta klaida"
+        },
+        "step": {
+            "authorize": {
+                "description": "Pra\u0161ome autorizuoti \u0161i\u0105 program\u0117l\u0119 adresu {auth_url} naudojant PIN kod\u0105: \n \n {pin} \n \n Tada pasirinkite **Pateikti**."
+            },
+            "mfa": {
+                "data": {
+                    "code": "MFA kodas"
+                },
+                "description": "ecobee reikalauja daugiafaktorinio autentifikavimo. \u012eveskite {mfa_type} kod\u0105 i\u0161 savo autentifikavimo program\u0117l\u0117s."
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Slapta\u017eodis"
+                },
+                "description": "I\u0161 naujo autentifikuokite \u201eecobee\u201c paskyr\u0105, skirt\u0105 **{username}**."
+            },
+            "user": {
+                "data": {
+                    "api_key": "API raktas",
+                    "password": "Slapta\u017eodis",
+                    "username": "Naudotojo vardas"
+                },
+                "description": "\u012eveskite API rakt\u0105, gaut\u0105 i\u0161 ecobee.com."
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "ecobee": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "away_indefinitely": "I\u0161vyko neribotam laikui"
+                        }
+                    }
+                }
+            }
+        },
+        "number": {
+            "compressor_protection_min_temp": {
+                "name": "Minimali kompresoriaus temperat\u016bra"
+            },
+            "fan_min_on_time": {
+                "name": "Minimalus ventiliatoriaus \u012fjungimo laikas"
+            },
+            "ventilator_min_type_away": {
+                "name": "Minimalus laikas nuo ventiliatoriaus"
+            },
+            "ventilator_min_type_home": {
+                "name": "Ventiliatoriaus minimalus laikas namuose"
+            }
+        },
+        "switch": {
+            "aux_heat_only": {
+                "name": "Tik pagalbin\u0117 \u0161iluma"
+            }
+        }
+    },
+    "exceptions": {
+        "credentials_rejected": {
+            "message": "ecobee atmet\u0117 i\u0161saugotus prisijungimo duomenis"
+        },
+        "failed_to_refresh_tokens": {
+            "message": "Nepavyko atnaujinti ecobee \u017eeton\u0173"
+        },
+        "invalid_preset": {
+            "message": "Neteisinga klimato programa, galimos parinktys: {options}"
+        },
+        "invalid_sensor": {
+            "message": "Netinkamas termostato jutiklis, galimos \u0161ios parinktys: {options}"
+        },
+        "mfa_reauthentication_needed": {
+            "message": "Ecobee paskyrai reikalingas daugiafaktorinis autentifikavimas; reikalingas pakartotinis autentifikavimas"
+        },
+        "no_devices_found": {
+            "message": "Nerasta joki\u0173 ecobee \u012frengini\u0173, kuriuos b\u016bt\u0173 galima nustatyti"
+        },
+        "sensor_lookup_failed": {
+            "message": "Gaunant jutikli\u0173 ID i\u0161 jutikli\u0173 pavadinim\u0173 \u012fvyko klaida. Pabandykite i\u0161 naujo \u012fkelti ecobee integracij\u0105."
+        }
+    },
+    "issues": {
+        "migrate_aux_heat": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Ecobee veiksmas 'set_aux_heat' buvo perkeltas. Kiekvienam termostatui, kuris palaiko \u0161ilumos siurbl\u012f, yra naujas jungiklis 'aux_heat_only'. \n \n Atnaujinkite visus automatizavimus, kad gal\u0117tum\u0117te naudoti nauj\u0105 jungiklio objekt\u0105 'aux_heat_only'. Kai tai bus padaryta, i\u0161spr\u0119skite \u0161i\u0105 problem\u0105 ir i\u0161 naujo paleiskite Home Assistant.",
+                        "title": "I\u0161jungti sen\u0105 ecobee set_aux_heat veiksm\u0105"
+                    }
+                }
+            },
+            "title": "Ecobee set_aux_heat veiksmo perk\u0117limas"
+        }
+    },
+    "services": {
+        "create_vacation": {
+            "description": "Sukuria atostogas pasirinktame termostate. Pastaba: kad \u0161ie parametrai veikt\u0173, prad\u017eios / pabaigos data ir laikas turi b\u016bti nurodyti kartu. Jei prad\u017eios/pabaigos data ir laikas nenurodomi, atostogos prasid\u0117s i\u0161 karto ir truks 14 dien\u0173 (nebent i\u0161trintos anks\u010diau).",
+            "fields": {
+                "cool_temp": {
+                    "description": "V\u0117sinimo temperat\u016bra atostog\u0173 metu.",
+                    "name": "\u0160alta temperat\u016bra"
+                },
+                "end_date": {
+                    "description": "Atostog\u0173 pabaigos data MMMM-MM-DD formatu (pasirenkama, 14 dien\u0173 nuo dabar, jei nenurodyta kartu su 'Pabaigos laikas').",
+                    "name": "Pabaigos data"
+                },
+                "end_time": {
+                    "description": "Atostog\u0173 pabaigos laikas, termostato vietos laiku, 24 valand\u0173 formatu \u201eHH:MM:SS\u201c.",
+                    "name": "Pabaigos laikas"
+                },
+                "entity_id": {
+                    "description": "ecobee termostatas, ant kurio gal\u0117site sukurti atostogas.",
+                    "name": "Subjektas"
+                },
+                "fan_min_on_time": {
+                    "description": "Ma\u017eiausias minu\u010di\u0173 skai\u010dius, kiek turi veikti ventiliatorius kiekvien\u0105 valand\u0105 atostog\u0173 metu.",
+                    "name": "Minimalus ventiliatoriaus laikas"
+                },
+                "fan_mode": {
+                    "description": "Termostato ventiliatoriaus re\u017eimas atostog\u0173 metu.",
+                    "name": "Ventiliatoriaus re\u017eimas"
+                },
+                "heat_temp": {
+                    "description": "\u0160ildymo temperat\u016bra atostog\u0173 metu.",
+                    "name": "\u0160ilumos temperat\u016bra"
+                },
+                "start_date": {
+                    "description": "Atostog\u0173 prad\u017eios data formatu YYYY-MM-DD (neprivaloma, i\u0161 karto, jei nenurodyta kartu su 'Prad\u017eios laikas').",
+                    "name": "Prad\u017eios data"
+                },
+                "start_time": {
+                    "description": "Atostog\u0173 prad\u017eios laikas, termostato vietos laiku, 24 valand\u0173 formatu \u201eHH:MM:SS\u201c.",
+                    "name": "Prad\u017eios laikas"
+                },
+                "vacation_name": {
+                    "description": "Kuriam\u0173 atostog\u0173 pavadinimas; jis turi b\u016bti unikalus termostate.",
+                    "name": "Atostog\u0173 pavadinimas"
+                }
+            },
+            "name": "Sukurti atostogas"
+        },
+        "delete_vacation": {
+            "description": "I\u0161trina atostogas pasirinktame termostate.",
+            "fields": {
+                "entity_id": {
+                    "description": "ecobee termostatas, ant kurio galite i\u0161trinti atostogas.",
+                    "name": "Subjektas"
+                },
+                "vacation_name": {
+                    "description": "Atostog\u0173 pavadinimas, kur\u012f norite i\u0161trinti.",
+                    "name": "Atostog\u0173 pavadinimas"
+                }
+            },
+            "name": "I\u0161trinti atostogas"
+        },
+        "resume_program": {
+            "description": "Atnaujina u\u017eprogramuot\u0105 tvarkara\u0161t\u012f.",
+            "fields": {
+                "entity_id": {
+                    "description": "Keistin\u0173 subjekt\u0173 pavadinimas (-ai).",
+                    "name": "Subjektas"
+                },
+                "resume_all": {
+                    "description": "T\u0119skite visus \u012fvykius ir gr\u012f\u017ekite \u012f suplanuot\u0105 program\u0105.",
+                    "name": "T\u0119sti visk\u0105"
+                }
+            },
+            "name": "T\u0119sti program\u0105"
+        },
+        "set_dst_mode": {
+            "description": "\u012ejungia / i\u0161jungia automatin\u012f vasaros laik\u0105.",
+            "fields": {
+                "dst_enabled": {
+                    "description": "\u012ejungti automatin\u012f vasaros laik\u0105.",
+                    "name": "\u012ejungtas vasaros laikas"
+                }
+            },
+            "name": "Nustatykite vasaros laiko re\u017eim\u0105"
+        },
+        "set_fan_min_on_time": {
+            "description": "Nustato ma\u017eiausi\u0105 laik\u0105, kur\u012f ventiliatorius veiks per valand\u0105.",
+            "fields": {
+                "entity_id": {
+                    "description": "Keistin\u0173 subjekt\u0173 pavadinimas (-ai).",
+                    "name": "Subjektas"
+                },
+                "fan_min_on_time": {
+                    "description": "Ma\u017eiausias ventiliatoriaus veikimo minu\u010di\u0173 skai\u010dius per valand\u0105.",
+                    "name": "Minimalus ventiliatoriaus laikas"
+                }
+            },
+            "name": "Nustatykite minimal\u0173 ventiliatoriaus laik\u0105"
+        },
+        "set_mic_mode": {
+            "description": "\u012ejungia / i\u0161jungia Alexa mikrofon\u0105 (tik ecobee 4).",
+            "fields": {
+                "mic_enabled": {
+                    "description": "\u012egalinti Alexa mikrofon\u0105.",
+                    "name": "Mikrofonas \u012fjungtas"
+                }
+            },
+            "name": "Nustatykite mikrofono re\u017eim\u0105"
+        },
+        "set_occupancy_modes": {
+            "description": "\u012ejungia / i\u0161jungia re\u017eimus \u201eI\u0161manieji namai\u201c / \u201eAway\u201c ir \u201eFolk Me\u201c.",
+            "fields": {
+                "auto_away": {
+                    "description": "\u012ejunkite i\u0161man\u0173j\u012f nam\u0173 / i\u0161vykimo re\u017eim\u0105.",
+                    "name": "Automatinis i\u0161vykimas"
+                },
+                "follow_me": {
+                    "description": "\u012ejunkite re\u017eim\u0105 Steb\u0117ti mane.",
+                    "name": "Sek mane"
+                }
+            },
+            "name": "Nustatykite u\u017eimtumo re\u017eimus"
+        },
+        "set_sensors_used_in_climate": {
+            "description": "Nustato dalyvaujan\u010dius jutiklius klimato programai.",
+            "fields": {
+                "device_ids": {
+                    "description": "Jutikliai, kuriuos reikia nustatyti kaip dalyvaujan\u010dius jutiklius.",
+                    "name": "Jutikliai"
+                },
+                "preset_mode": {
+                    "description": "Klimato programos, kuria \u012fjungiami jutikliai, pavadinimas. Pagal numatytuosius nustatymus \u0161iuo metu aktyvi programa.",
+                    "name": "Klimato programa"
+                }
+            },
+            "name": "Nustatykite jutiklius, naudojamus klimato s\u0105lygomis"
+        }
+    }
+}

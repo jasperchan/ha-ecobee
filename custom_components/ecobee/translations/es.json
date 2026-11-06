@@ -1,0 +1,243 @@
+{
+    "config": {
+        "error": {
+            "invalid_auth": "Autenticaci\u00f3n no v\u00e1lida",
+            "invalid_mfa_code": "ecobee no acept\u00f3 el c\u00f3digo MFA; por favor, int\u00e9ntalo de nuevo.",
+            "login_failed": "Error de autenticaci\u00f3n con ecobee; por favor, verifica que tus credenciales son correctas.",
+            "pin_request_failed": "Error al solicitar PIN de ecobee; por favor, verifica que la clave API sea correcta.",
+            "token_request_failed": "Error al solicitar tokens de ecobee; por favor, int\u00e9ntalo de nuevo.",
+            "unknown": "Error inesperado"
+        },
+        "step": {
+            "authorize": {
+                "description": "Por favor, autoriza esta aplicaci\u00f3n en {auth_url} con el c\u00f3digo PIN:\n\n{pin}\n\nA continuaci\u00f3n, selecciona **Enviar**."
+            },
+            "mfa": {
+                "data": {
+                    "code": "C\u00f3digo MFA"
+                },
+                "description": "ecobee requiere autenticaci\u00f3n multifactor. Introduce el c\u00f3digo {mfa_type} de tu aplicaci\u00f3n de autenticaci\u00f3n."
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "Contrase\u00f1a"
+                },
+                "description": "Volver a autenticar la cuenta de ecobee para **{username}**."
+            },
+            "user": {
+                "data": {
+                    "api_key": "Clave API",
+                    "password": "Contrase\u00f1a",
+                    "username": "Nombre de usuario"
+                },
+                "description": "Por favor, introduce la clave API obtenida de ecobee.com."
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "ecobee": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "away_indefinitely": "Ausente indefinidamente"
+                        }
+                    }
+                }
+            }
+        },
+        "number": {
+            "compressor_protection_min_temp": {
+                "name": "Temperatura m\u00ednima del compresor"
+            },
+            "fan_min_on_time": {
+                "name": "Tiempo m\u00ednimo de encendido del ventilador"
+            },
+            "ventilator_min_type_away": {
+                "name": "Tiempo m\u00ednimo del ventilador cuando ausente"
+            },
+            "ventilator_min_type_home": {
+                "name": "Tiempo m\u00ednimo del ventilador en casa"
+            }
+        },
+        "switch": {
+            "aux_heat_only": {
+                "name": "S\u00f3lo calefacci\u00f3n auxiliar"
+            }
+        }
+    },
+    "exceptions": {
+        "credentials_rejected": {
+            "message": "ecobee rechaz\u00f3 las credenciales almacenadas."
+        },
+        "failed_to_refresh_tokens": {
+            "message": "No se pudieron actualizar los tokens de ecobee."
+        },
+        "invalid_preset": {
+            "message": "Programa de climatizaci\u00f3n no v\u00e1lido, las opciones disponibles son: {options}"
+        },
+        "invalid_sensor": {
+            "message": "Sensor no v\u00e1lido para termostato, las opciones disponibles son: {options}"
+        },
+        "mfa_reauthentication_needed": {
+            "message": "La cuenta de ecobee requiere autenticaci\u00f3n multifactor (MFA); es necesario volver a autenticarse."
+        },
+        "no_devices_found": {
+            "message": "No se encontraron dispositivos ecobee para configurar"
+        },
+        "sensor_lookup_failed": {
+            "message": "Se produjo un error al obtener los identificadores de los sensores a partir de sus nombres. Intenta volver a cargar la integraci\u00f3n de ecobee."
+        }
+    },
+    "issues": {
+        "migrate_aux_heat": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Se ha migrado la acci\u00f3n ecobee `set_aux_heat`. Hay disponible una nueva entidad de conmutaci\u00f3n `aux_heat_only` para cada termostato compatible con una bomba de calor.\n\nActualiza cualquier automatizaci\u00f3n para utilizar la nueva entidad de conmutaci\u00f3n `aux_heat_only`. Una vez hecho esto, soluciona este problema y reinicia Home Assistant.",
+                        "title": "Deshabilitar la acci\u00f3n heredada ecobee set_aux_heat"
+                    }
+                }
+            },
+            "title": "Migraci\u00f3n de la acci\u00f3n ecobee set_aux_heat"
+        }
+    },
+    "services": {
+        "create_vacation": {
+            "description": "Crea unas vacaciones en el termostato seleccionado. Nota: la fecha y la hora de inicio/finalizaci\u00f3n deben especificarse juntas para que estos par\u00e1metros tengan efecto. Si no se especifican la fecha y la hora de inicio/finalizaci\u00f3n, las vacaciones comenzar\u00e1n inmediatamente y durar\u00e1n 14 d\u00edas (a menos que se eliminen antes).",
+            "fields": {
+                "cool_temp": {
+                    "description": "Temperatura de refrigeraci\u00f3n durante las vacaciones.",
+                    "name": "Temperatura de refrigeraci\u00f3n"
+                },
+                "end_date": {
+                    "description": "Fecha de finalizaci\u00f3n de las vacaciones en formato AAAA-MM-DD (opcional, 14 d\u00edas a partir de ahora si no se proporciona junto con la \"Hora de finalizaci\u00f3n\").",
+                    "name": "Fecha de fin"
+                },
+                "end_time": {
+                    "description": "Hora de finalizaci\u00f3n de las vacaciones, en la hora local del termostato, en el formato de 24 horas \"HH:MM:SS\".",
+                    "name": "Hora de finalizaci\u00f3n"
+                },
+                "entity_id": {
+                    "description": "Termostato ecobee para crear las vacaciones.",
+                    "name": "Entidad"
+                },
+                "fan_min_on_time": {
+                    "description": "N\u00famero m\u00ednimo de minutos que debe hacer funcionar el ventilador cada hora durante las vacaciones.",
+                    "name": "Tiempo m\u00ednimo de encendido del ventilador"
+                },
+                "fan_mode": {
+                    "description": "Modo ventilador del termostato durante las vacaciones.",
+                    "name": "Modo del ventilador"
+                },
+                "heat_temp": {
+                    "description": "Temperatura de calefacci\u00f3n durante las vacaciones.",
+                    "name": "Temperatura de calefacci\u00f3n"
+                },
+                "start_date": {
+                    "description": "Fecha de inicio de las vacaciones en formato AAAA-MM-DD (opcional, inmediatamente si no se proporciona junto con la 'Hora de inicio').",
+                    "name": "Fecha de inicio"
+                },
+                "start_time": {
+                    "description": "Hora de inicio de las vacaciones, en la hora local del termostato, en el formato de 24 horas \"HH:MM:SS\".",
+                    "name": "Hora de inicio"
+                },
+                "vacation_name": {
+                    "description": "Nombre de las vacaciones a crear; debe ser \u00fanico en el termostato.",
+                    "name": "Nombre de vacaciones"
+                }
+            },
+            "name": "Crear vacaciones"
+        },
+        "delete_vacation": {
+            "description": "Elimina unas vacaciones en el termostato seleccionado.",
+            "fields": {
+                "entity_id": {
+                    "description": "Termostato ecobee en el que borrar las vacaciones.",
+                    "name": "Entidad"
+                },
+                "vacation_name": {
+                    "description": "Nombre de las vacaciones a borrar.",
+                    "name": "Nombre de vacaciones"
+                }
+            },
+            "name": "Borrar vacaciones"
+        },
+        "resume_program": {
+            "description": "Reanuda el horario programado.",
+            "fields": {
+                "entity_id": {
+                    "description": "Nombre(s) de las entidades a cambiar.",
+                    "name": "Entidad"
+                },
+                "resume_all": {
+                    "description": "Reanuda todos los eventos y regresa al programa programado.",
+                    "name": "Reanudar todo"
+                }
+            },
+            "name": "Reanudar programa"
+        },
+        "set_dst_mode": {
+            "description": "Habilita/deshabilita el horario de verano autom\u00e1tico.",
+            "fields": {
+                "dst_enabled": {
+                    "description": "Habilita el horario de verano autom\u00e1tico.",
+                    "name": "Horario de verano habilitado"
+                }
+            },
+            "name": "Establecer el modo de horario de verano"
+        },
+        "set_fan_min_on_time": {
+            "description": "Establece la cantidad m\u00ednima de tiempo que el ventilador funcionar\u00e1 por hora.",
+            "fields": {
+                "entity_id": {
+                    "description": "Nombre(s) de las entidades a cambiar.",
+                    "name": "Entidad"
+                },
+                "fan_min_on_time": {
+                    "description": "N\u00famero m\u00ednimo de minutos que debe hacer funcionar el ventilador cada hora.",
+                    "name": "Tiempo m\u00ednimo de encendido del ventilador"
+                }
+            },
+            "name": "Ajustar el tiempo m\u00ednimo de encendido del ventilador"
+        },
+        "set_mic_mode": {
+            "description": "Habilita/deshabilita el micr\u00f3fono de Alexa (solo para ecobee 4).",
+            "fields": {
+                "mic_enabled": {
+                    "description": "Habilitar el micr\u00f3fono de Alexa.",
+                    "name": "Micr\u00f3fono habilitado"
+                }
+            },
+            "name": "Establecer modo de micr\u00f3fono"
+        },
+        "set_occupancy_modes": {
+            "description": "Habilita/deshabilita los modos En casa/Ausente inteligente y S\u00edgueme.",
+            "fields": {
+                "auto_away": {
+                    "description": "Habilita el modo En casa/Ausente inteligente.",
+                    "name": "Auto ausente"
+                },
+                "follow_me": {
+                    "description": "Habilita el modo S\u00edgueme.",
+                    "name": "S\u00edgueme"
+                }
+            },
+            "name": "Establecer modos de ocupaci\u00f3n"
+        },
+        "set_sensors_used_in_climate": {
+            "description": "Establece los sensores participantes para un programa clim\u00e1tico.",
+            "fields": {
+                "device_ids": {
+                    "description": "Sensores para configurar como sensores participantes.",
+                    "name": "Sensores"
+                },
+                "preset_mode": {
+                    "description": "Nombre del programa clim\u00e1tico en el que se activar\u00e1n los sensores. El valor predeterminado es el programa activo en ese momento.",
+                    "name": "Programa de climatizaci\u00f3n"
+                }
+            },
+            "name": "Conjunto de sensores utilizados en el clima"
+        }
+    }
+}

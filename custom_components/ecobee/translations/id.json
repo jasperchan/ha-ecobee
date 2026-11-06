@@ -1,0 +1,16 @@
+{
+    "config": {
+        "error": {
+            "pin_request_failed": "Terjadi kesalahan saat meminta PIN dari ecobee. Verifikasi apakah kunci API sudah benar.",
+            "token_request_failed": "Kesalahan saat meminta token dari ecobee. Coba lagi"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "api_key": "Kunci API"
+                },
+                "description": "Masukkan kunci API yang diperoleh dari ecobee.com."
+            }
+        }
+    }
+}

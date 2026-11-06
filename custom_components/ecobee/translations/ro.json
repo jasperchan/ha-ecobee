@@ -1,0 +1,13 @@
+{
+    "config": {
+        "error": {
+            "pin_request_failed": "Eroare la solicitarea codului PIN de la ecobee; te rug\u0103m s\u0103 verifici corectitudinea cheii API.",
+            "token_request_failed": "Eroare la solicitarea token-ilor de la ecobee; te rug\u0103m s\u0103 re\u00eencerci."
+        },
+        "step": {
+            "user": {
+                "description": "Te rug\u0103m s\u0103 introduci cheia API ob\u021binut\u0103 de la ecobee.com/"
+            }
+        }
+    }
+}
