@@ -44,6 +44,6 @@
       "type": "_sideplay._tcp.local."
     }
   ],
-  "version": "2026.11.0.4",
+  "version": "2026.11.0.5",
   "issue_tracker": "https://github.com/jasperchan/ha-ecobee/issues"
 }

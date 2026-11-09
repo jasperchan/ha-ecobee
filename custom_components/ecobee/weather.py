@@ -29,12 +29,12 @@ from homeassistant.util import dt as dt_util
 
 from . import EcobeeConfigEntry, EcobeeData
 from .const import (
-from .entity import merge_into_homekit
     DOMAIN,
     ECOBEE_MODEL_TO_NAME,
     ECOBEE_WEATHER_SYMBOL_TO_HASS,
     MANUFACTURER,
 )
+from .entity import merge_into_homekit
 
 
 async def async_setup_entry(
