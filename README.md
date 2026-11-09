@@ -218,3 +218,13 @@ except the four `program*.py` files, then re-apply the two hook lines (`services
 `async_setup_program_services(hass)`; `number.py`: `entities.extend(build_program_number_entities(data))`),
 and re-add the fork's entries in `services.yaml`, `strings.json`, `translations/en.json`, `icons.json`
 and `manifest.json` (name, version, codeowners, documentation, issue_tracker).
+
+
+## HomeKit alongside
+
+For local, instant control pair the thermostats with Home Assistant's HomeKit Device
+integration and use this fork only for what HomeKit lacks (comfort-setting temperatures,
+schedules, sensors per comfort setting, fan minimum, on-screen messages). Home Assistant
+scopes device identifiers to a config entry, so each thermostat appears as two devices,
+one per integration; disable the cloud duplicates of live data and keep the cloud
+`climate` entity (hidden) because the program services target it.

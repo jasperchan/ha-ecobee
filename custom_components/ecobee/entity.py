@@ -3,7 +3,6 @@
 import logging
 from typing import Any, override
 
-from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity import Entity
 
@@ -14,23 +13,14 @@ _LOGGER = logging.getLogger(__name__)
 
 
 def merge_into_homekit(hass, info: DeviceInfo | None) -> DeviceInfo | None:
-    """ha-ecobee fork: return ``info`` re-targeted at the HomeKit device for the same thermostat/sensor.
+    """ha-ecobee fork: identity pass-through.
 
-    HomeKit Device stores the ecobee identifier as the device serial number; claiming that
-    device's identifiers makes the registry attach our entities to it (one device per
-    thermostat). Without a HomeKit twin the info is returned unchanged.
+    Merging into the HomeKit Device twin by sharing its identifiers was tried and
+    reverted: since Home Assistant 2026 the device registry scopes identifier lookups
+    to the calling config entry, so another integration's identifiers do not attach
+    entities to its device, they create a second device with the same identifiers.
+    Devices therefore stay one-per-integration; see README "HomeKit alongside".
     """
-    if not info or hass is None:
-        return info
-    serials = {value for domain, value in info.get("identifiers", ()) if domain == DOMAIN}
-    if not serials:
-        return info
-    registry = dr.async_get(hass)
-    for device in registry.devices.values():
-        if device.serial_number in serials and any(d != DOMAIN for d, _ in device.identifiers):
-            merged = dict(info)
-            merged["identifiers"] = set(device.identifiers)
-            return DeviceInfo(**merged)  # type: ignore[typeddict-item]
     return info
 
 
@@ -51,12 +41,6 @@ class EcobeeBaseEntity(Entity):
             model=ECOBEE_MODEL_TO_NAME.get(thermostat["modelNumber"]),
             name=thermostat["name"],
         )
-
-    @property
-    @override
-    def device_info(self) -> DeviceInfo | None:
-        """Device info, merged into the HomeKit twin when one exists (ha-ecobee fork)."""
-        return merge_into_homekit(self.hass, self._attr_device_info)
 
     @property
     def thermostat(self) -> dict[str, Any]:
