@@ -17,6 +17,7 @@ from pyecobee import (
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_API_KEY, CONF_PASSWORD, CONF_USERNAME
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers import device_registry as dr
 from homeassistant.exceptions import (
     ConfigEntryAuthFailed,
     ConfigEntryError,
@@ -174,3 +175,16 @@ class EcobeeData:
 async def async_unload_entry(hass: HomeAssistant, entry: EcobeeConfigEntry) -> None:
     """Unload the config entry and platforms."""
     await hass.config_entries.async_unload_platforms_or_raise(entry, PLATFORMS)
+
+
+async def async_remove_config_entry_device(
+    hass: HomeAssistant, entry: EcobeeConfigEntry, device: dr.DeviceEntry
+) -> bool:
+    """Allow removing a device from the UI (ha-ecobee fork).
+
+    Thermostats are re-created on the next load if ecobee still reports them, so
+    removal is safe; it is mainly for cleaning up devices left behind after the
+    entities moved onto their HomeKit twin.
+    """
+    return True
+

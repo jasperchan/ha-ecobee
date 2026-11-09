@@ -51,10 +51,11 @@ class EcobeeBaseEntity(Entity):
             if device.serial_number == self.base_unique_id and any(
                 domain != DOMAIN for domain, _ in device.identifiers
             ):
+                # Claim ONLY the HomeKit device's identifiers: the registry attaches
+                # these entities to that existing device (a true merge). Keeping the
+                # ecobee identifier as well would match our own old device first.
                 merged = dict(info)
-                merged["identifiers"] = set(info.get("identifiers", set())) | set(
-                    device.identifiers
-                )
+                merged["identifiers"] = set(device.identifiers)
                 return DeviceInfo(**merged)  # type: ignore[typeddict-item]
         return info
 
