@@ -55,6 +55,7 @@ from .services import (
     _async_get_thermostats,
 )
 from .util import is_indefinite_hold
+from .entity import merge_into_homekit
 
 PRESET_AWAY_INDEFINITELY = "away_indefinitely"
 PRESET_TEMPERATURE = "temp"
@@ -248,12 +249,12 @@ class Thermostat(ClimateEntity):
             # Ecobee model is not in our list
             model = None
 
-        return DeviceInfo(
+        return merge_into_homekit(self.hass, DeviceInfo(
             identifiers={(DOMAIN, self.thermostat["identifier"])},
             manufacturer=MANUFACTURER,
             model=model,
             name=self.thermostat["name"],
-        )
+        ))
 
     @property
     @override

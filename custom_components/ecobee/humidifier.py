@@ -18,6 +18,7 @@ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from . import EcobeeConfigEntry
 from .const import DOMAIN, ECOBEE_MODEL_TO_NAME, MANUFACTURER
+from .entity import merge_into_homekit
 
 SCAN_INTERVAL = timedelta(minutes=3)
 
@@ -79,12 +80,12 @@ class EcobeeHumidifier(HumidifierEntity):
             # Ecobee model is not in our list
             model = None
 
-        return DeviceInfo(
+        return merge_into_homekit(self.hass, DeviceInfo(
             identifiers={(DOMAIN, self.thermostat["identifier"])},
             manufacturer=MANUFACTURER,
             model=model,
             name=self.thermostat["name"],
-        )
+        ))
 
     @property
     @override

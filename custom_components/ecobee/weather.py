@@ -29,6 +29,7 @@ from homeassistant.util import dt as dt_util
 
 from . import EcobeeConfigEntry, EcobeeData
 from .const import (
+from .entity import merge_into_homekit
     DOMAIN,
     ECOBEE_MODEL_TO_NAME,
     ECOBEE_WEATHER_SYMBOL_TO_HASS,
@@ -91,12 +92,12 @@ class EcobeeWeather(WeatherEntity):
             # Ecobee model is not in our list
             model = None
 
-        return DeviceInfo(
+        return merge_into_homekit(self.hass, DeviceInfo(
             identifiers={(DOMAIN, thermostat["identifier"])},
             manufacturer=MANUFACTURER,
             model=model,
             name=self._name,
-        )
+        ))
 
     @property
     @override

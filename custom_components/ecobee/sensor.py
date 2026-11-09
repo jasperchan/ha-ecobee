@@ -18,6 +18,7 @@ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from . import EcobeeConfigEntry
 from .const import DOMAIN, ECOBEE_MODEL_TO_NAME, MANUFACTURER
+from .entity import merge_into_homekit
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -142,12 +143,12 @@ class EcobeeSensor(SensorEntity):
             break
 
         if identifier is not None and model is not None:
-            return DeviceInfo(
+            return merge_into_homekit(self.hass, DeviceInfo(
                 identifiers={(DOMAIN, identifier)},
                 manufacturer=MANUFACTURER,
                 model=model,
                 name=self.sensor_name,
-            )
+            ))
         return None
 
     @property
