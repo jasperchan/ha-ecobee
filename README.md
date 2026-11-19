@@ -1,6 +1,6 @@
 # ha-ecobee — program control fork
 
-A fork of Home Assistant's core `ecobee` integration (HA 2026.11.0) that adds control over the
+A fork of Home Assistant's core `ecobee` integration (HA 2026.11.2) that adds control over the
 thermostat **program**: comfort-setting temperatures, participating sensors, the weekly schedule, and
 copying all of it from one thermostat to the others. It exists because setting schedules and comfort
 settings across several ecobee thermostats in the ecobee app is painful.
@@ -14,7 +14,7 @@ two one-line hooks in `services.py` and `number.py`, and documents them in `serv
 
 1. Home Assistant → Marketplace (HACS) → three-dot menu → **Custom repositories** → add
    `https://github.com/jasperchan/ha-ecobee` as type *Integration*.
-2. Install **ecobee (program control fork)**.
+2. Install **ecobee (Fork)**.
 3. **Restart Home Assistant.** The fork uses the same domain `ecobee` as core, so it overrides the
    built-in integration; your existing ecobee config entry, entities and automations keep working.
    Nothing to reconfigure.

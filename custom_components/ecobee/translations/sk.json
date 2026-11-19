@@ -111,7 +111,7 @@
                     "name": "Teplota chladenia"
                 },
                 "end_date": {
-                    "description": "D\u00e1tum ukon\u010denia dovolenky vo form\u00e1te RRRR-MM-DD (nepovinn\u00fd, 14 dn\u00ed odteraz, ak nie je uveden\u00fd spolu s \"\u010casom ukon\u010denia\").",
+                    "description": "D\u00e1tum ukon\u010denia dovolenky vo form\u00e1te RRRR-MM-DD (nepovinn\u00fd, 14 dn\u00ed odteraz, ak nie je uveden\u00fd spolu s '\u010casom ukon\u010denia').",
                     "name": "D\u00e1tum konca"
                 },
                 "end_time": {
@@ -135,7 +135,7 @@
                     "name": "Vykurovacia teplota"
                 },
                 "start_date": {
-                    "description": "D\u00e1tum za\u010diatku dovolenky vo form\u00e1te RRRR-MM-DD (nepovinn\u00fd \u00fadaj, ak nie je uveden\u00fd spolu s \"\u010casom za\u010diatku\", uv\u00e1dza sa okam\u017eite).",
+                    "description": "D\u00e1tum za\u010diatku dovolenky vo form\u00e1te RRRR-MM-DD (nepovinn\u00fd \u00fadaj, ak nie je uveden\u00fd spolu s '\u010casom za\u010diatku', uv\u00e1dza sa okam\u017eite).",
                     "name": "D\u00e1tum za\u010diatku"
                 },
                 "start_time": {

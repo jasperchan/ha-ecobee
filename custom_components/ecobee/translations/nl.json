@@ -47,6 +47,20 @@
         },
         "delete_vacation": {
             "name": "Vakantie verwijderen"
+        },
+        "set_occupancy_modes": {
+            "description": "Schakelt de modi \u2018Thuis/Weg\u2019 en \u2018Volg mij\u2019 in of uit.",
+            "fields": {
+                "auto_away": {
+                    "description": "Schakel de Smart Home/Away-modus in.",
+                    "name": "Automatisch afwezig"
+                },
+                "follow_me": {
+                    "description": "Schakel de 'Volg mij'-modus in.",
+                    "name": "Volg mij"
+                }
+            },
+            "name": "Bezettingsmodi instellen"
         }
     }
 }
